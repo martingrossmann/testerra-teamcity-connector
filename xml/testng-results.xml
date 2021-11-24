@@ -2,24 +2,24 @@
 <testng-results retried="1" ignored="0" total="8" passed="3" failed="3" skipped="1">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2021-11-24T16:46:35 UTC" name="Suite1" finished-at="2021-11-24T16:46:37 UTC" duration-ms="2105">
+  <suite started-at="2021-11-24T17:22:03 UTC" name="Suite1" finished-at="2021-11-24T17:22:05 UTC" duration-ms="2128">
     <groups>
     </groups>
-    <test started-at="2021-11-24T16:46:35 UTC" name="Test1" finished-at="2021-11-24T16:46:37 UTC" duration-ms="2105">
+    <test started-at="2021-11-24T17:22:03 UTC" name="Test1" finished-at="2021-11-24T17:22:05 UTC" duration-ms="2128">
       <class name="eu.tsystems.mms.tic.testerra.plugins.teamcity.test.SimpleTest">
-        <test-method is-config="true" signature="beforeSuite()[pri:0, instance:eu.tsystems.mms.tic.testerra.plugins.teamcity.test.SimpleTest@75961f16]" started-at="2021-11-24T16:46:35 UTC" name="beforeSuite" finished-at="2021-11-24T16:46:35 UTC" duration-ms="24" status="PASS">
+        <test-method is-config="true" signature="beforeSuite()[pri:0, instance:eu.tsystems.mms.tic.testerra.plugins.teamcity.test.SimpleTest@75961f16]" started-at="2021-11-24T17:22:03 UTC" name="beforeSuite" finished-at="2021-11-24T17:22:03 UTC" duration-ms="26" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- beforeSuite -->
-        <test-method signature="testT02_SimplePassedTest()[pri:2, instance:eu.tsystems.mms.tic.testerra.plugins.teamcity.test.SimpleTest@75961f16]" started-at="2021-11-24T16:46:35 UTC" name="testT02_SimplePassedTest" finished-at="2021-11-24T16:46:36 UTC" duration-ms="1022" status="PASS">
+        <test-method signature="testT02_SimplePassedTest()[pri:2, instance:eu.tsystems.mms.tic.testerra.plugins.teamcity.test.SimpleTest@75961f16]" started-at="2021-11-24T17:22:03 UTC" name="testT02_SimplePassedTest" finished-at="2021-11-24T17:22:04 UTC" duration-ms="1062" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testT02_SimplePassedTest -->
-        <test-method signature="testT01_SimplePassedTest()[pri:1, instance:eu.tsystems.mms.tic.testerra.plugins.teamcity.test.SimpleTest@75961f16]" started-at="2021-11-24T16:46:35 UTC" name="testT01_SimplePassedTest" finished-at="2021-11-24T16:46:36 UTC" duration-ms="1021" status="PASS">
+        <test-method signature="testT01_SimplePassedTest()[pri:1, instance:eu.tsystems.mms.tic.testerra.plugins.teamcity.test.SimpleTest@75961f16]" started-at="2021-11-24T17:22:03 UTC" name="testT01_SimplePassedTest" finished-at="2021-11-24T17:22:04 UTC" duration-ms="1053" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testT01_SimplePassedTest -->
-        <test-method signature="testT03_SimpleFailedTest()[pri:3, instance:eu.tsystems.mms.tic.testerra.plugins.teamcity.test.SimpleTest@75961f16]" started-at="2021-11-24T16:46:35 UTC" name="testT03_SimpleFailedTest" finished-at="2021-11-24T16:46:36 UTC" duration-ms="1020" status="FAIL">
+        <test-method signature="testT03_SimpleFailedTest()[pri:3, instance:eu.tsystems.mms.tic.testerra.plugins.teamcity.test.SimpleTest@75961f16]" started-at="2021-11-24T17:22:03 UTC" name="testT03_SimpleFailedTest" finished-at="2021-11-24T17:22:04 UTC" duration-ms="1054" status="FAIL">
           <exception class="java.lang.AssertionError">
             <message>
               <![CDATA[Failing for reasons]]>
@@ -53,26 +53,7 @@ at java.base/java.lang.Thread.run(Thread.java:829)
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testT03_SimpleFailedTest -->
-        <test-method signature="testT04_SkippedTest()[pri:4, instance:eu.tsystems.mms.tic.testerra.plugins.teamcity.test.SimpleTest@75961f16]" started-at="2021-11-24T16:46:36 UTC" name="testT04_SkippedTest" finished-at="2021-11-24T16:46:36 UTC" depends-on-methods="eu.tsystems.mms.tic.testerra.plugins.teamcity.test.SimpleTest.testT03_SimpleFailedTest" duration-ms="0" status="SKIP">
-          <exception class="java.lang.Throwable">
-            <message>
-              <![CDATA[Method SimpleTest.testT04_SkippedTest()[pri:4, instance:eu.tsystems.mms.tic.testerra.plugins.teamcity.test.SimpleTest@75961f16] depends on not successfully finished methods]]>
-            </message>
-            <full-stacktrace>
-              <![CDATA[java.lang.Throwable: Method SimpleTest.testT04_SkippedTest()[pri:4, instance:eu.tsystems.mms.tic.testerra.plugins.teamcity.test.SimpleTest@75961f16] depends on not successfully finished methods
-at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:102)
-at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
-at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
-at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
-at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
-at java.base/java.lang.Thread.run(Thread.java:829)
-]]>
-            </full-stacktrace>
-          </exception> <!-- java.lang.Throwable -->
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- testT04_SkippedTest -->
-        <test-method signature="testT05_SimpleExpectedFailedTest()[pri:5, instance:eu.tsystems.mms.tic.testerra.plugins.teamcity.test.SimpleTest@75961f16]" started-at="2021-11-24T16:46:36 UTC" name="testT05_SimpleExpectedFailedTest" finished-at="2021-11-24T16:46:37 UTC" duration-ms="1001" status="FAIL">
+        <test-method signature="testT05_SimpleExpectedFailedTest()[pri:5, instance:eu.tsystems.mms.tic.testerra.plugins.teamcity.test.SimpleTest@75961f16]" started-at="2021-11-24T17:22:04 UTC" name="testT05_SimpleExpectedFailedTest" finished-at="2021-11-24T17:22:05 UTC" duration-ms="1004" status="FAIL">
           <exception class="java.lang.AssertionError">
             <message>
               <![CDATA[Failing for reasons...]]>
@@ -106,7 +87,7 @@ at java.base/java.lang.Thread.run(Thread.java:829)
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testT05_SimpleExpectedFailedTest -->
-        <test-method retried="true" signature="testT06_RetriedTestSecondRunPassed()[pri:6, instance:eu.tsystems.mms.tic.testerra.plugins.teamcity.test.SimpleTest@75961f16]" started-at="2021-11-24T16:46:36 UTC" name="testT06_RetriedTestSecondRunPassed" finished-at="2021-11-24T16:46:36 UTC" duration-ms="1" status="SKIP">
+        <test-method retried="true" signature="testT06_RetriedTestSecondRunPassed()[pri:6, instance:eu.tsystems.mms.tic.testerra.plugins.teamcity.test.SimpleTest@75961f16]" started-at="2021-11-24T17:22:04 UTC" name="testT06_RetriedTestSecondRunPassed" finished-at="2021-11-24T17:22:04 UTC" duration-ms="3" status="SKIP">
           <exception class="java.lang.AssertionError">
             <message>
               <![CDATA[testT05_RetriedTestSecondRunPassed expected [true] but found [false]]]>
@@ -142,11 +123,11 @@ at java.base/java.lang.Thread.run(Thread.java:829)
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testT06_RetriedTestSecondRunPassed -->
-        <test-method signature="testT06_RetriedTestSecondRunPassed()[pri:6, instance:eu.tsystems.mms.tic.testerra.plugins.teamcity.test.SimpleTest@75961f16]" started-at="2021-11-24T16:46:36 UTC" name="testT06_RetriedTestSecondRunPassed" finished-at="2021-11-24T16:46:36 UTC" duration-ms="1" status="PASS">
+        <test-method signature="testT06_RetriedTestSecondRunPassed()[pri:6, instance:eu.tsystems.mms.tic.testerra.plugins.teamcity.test.SimpleTest@75961f16]" started-at="2021-11-24T17:22:04 UTC" name="testT06_RetriedTestSecondRunPassed" finished-at="2021-11-24T17:22:04 UTC" duration-ms="0" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testT06_RetriedTestSecondRunPassed -->
-        <test-method signature="test07_VerifyTeamCityMessages()[pri:999, instance:eu.tsystems.mms.tic.testerra.plugins.teamcity.test.SimpleTest@75961f16]" started-at="2021-11-24T16:46:36 UTC" name="test07_VerifyTeamCityMessages" finished-at="2021-11-24T16:46:36 UTC" duration-ms="2" status="FAIL">
+        <test-method signature="test07_VerifyTeamCityMessages()[pri:999, instance:eu.tsystems.mms.tic.testerra.plugins.teamcity.test.SimpleTest@75961f16]" started-at="2021-11-24T17:22:04 UTC" name="test07_VerifyTeamCityMessages" finished-at="2021-11-24T17:22:04 UTC" duration-ms="2" status="FAIL">
           <exception class="java.lang.AssertionError">
             <message>
               <![CDATA[expected [true] but found [false]]]>
@@ -183,6 +164,25 @@ at java.base/java.lang.Thread.run(Thread.java:829)
           <reporter-output>
           </reporter-output>
         </test-method> <!-- test07_VerifyTeamCityMessages -->
+        <test-method signature="testT04_SkippedTest()[pri:4, instance:eu.tsystems.mms.tic.testerra.plugins.teamcity.test.SimpleTest@75961f16]" started-at="2021-11-24T17:22:04 UTC" name="testT04_SkippedTest" finished-at="2021-11-24T17:22:04 UTC" depends-on-methods="eu.tsystems.mms.tic.testerra.plugins.teamcity.test.SimpleTest.testT03_SimpleFailedTest" duration-ms="0" status="SKIP">
+          <exception class="java.lang.Throwable">
+            <message>
+              <![CDATA[Method SimpleTest.testT04_SkippedTest()[pri:4, instance:eu.tsystems.mms.tic.testerra.plugins.teamcity.test.SimpleTest@75961f16] depends on not successfully finished methods]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[java.lang.Throwable: Method SimpleTest.testT04_SkippedTest()[pri:4, instance:eu.tsystems.mms.tic.testerra.plugins.teamcity.test.SimpleTest@75961f16] depends on not successfully finished methods
+at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:102)
+at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
+at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
+at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+at java.base/java.lang.Thread.run(Thread.java:829)
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.Throwable -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testT04_SkippedTest -->
       </class> <!-- eu.tsystems.mms.tic.testerra.plugins.teamcity.test.SimpleTest -->
     </test> <!-- Test1 -->
   </suite> <!-- Suite1 -->
