@@ -1,5 +1,28 @@
-# This workflow will build a package using Gradle and then publish it to GitHub packages when a release is created
-# For more information see: https://github.com/actions/setup-java/blob/main/docs/advanced-usage.md#Publishing-using-gradle
+#
+# Testerra TeamCity connector
+#
+# (C) 2021,  Martin Großmann, T-Systems Multimedia Solutions GmbH, Deutsche Telekom AG
+#
+# Deutsche Telekom AG and all other contributors /
+# copyright owners license this file to you under the Apache
+# License, Version 2.0 (the "License"); you may not use this
+# file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+#
+
+# This workflow will execute the unit test and upload the results as artifact.
+
+# Important: Executing the test and updating the PR are splitted into 2 actions because of this:
+#            https://securitylab.github.com/research/github-actions-preventing-pwn-requests/
 
 name: TeamCity connector test
 
@@ -20,7 +43,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+
     - uses: actions/checkout@v2
+
     - name: Set up JDK 11
       uses: actions/setup-java@v2
       with:
@@ -29,7 +54,7 @@ jobs:
         server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
         settings-path: ${{ github.workspace }} # location for the settings.xml file
 
-    - name: Build with Gradle
+    - name: Execute test
       run: gradle test
 
     - name: Publish Test Report
@@ -39,6 +64,8 @@ jobs:
         show_skipped: true
         github_token: ${{ secrets.GITHUB_TOKEN }}
 
+    # event.json contains all needed information about the PR and the repo
+    # and its needed from action 'pr-comment.yml'
     - name: Upload event file
       uses: actions/upload-artifact@v2
       with:
@@ -50,11 +77,3 @@ jobs:
       with:
         name: 'testerra_results'
         path: test-report/
-
-    # The USERNAME and TOKEN need to correspond to the credentials environment variables used in
-    # the publishing section of your build.gradle
-#     - name: Publish to GitHub Packages
-#       run: gradle publish
-#       env:
-#         USERNAME: ${{ github.actor }}
-#         TOKEN: ${{ secrets.GITHUB_TOKEN }}
