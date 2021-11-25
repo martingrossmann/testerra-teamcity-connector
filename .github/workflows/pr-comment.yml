@@ -1,8 +1,35 @@
-# Add comments to PRs
-name: Comment on the pull request
+#
+# Testerra TeamCity connector
+#
+# (C) 2021,  Martin Großmann, T-Systems Multimedia Solutions GmbH, Deutsche Telekom AG
+#
+# Deutsche Telekom AG and all other contributors /
+# copyright owners license this file to you under the Apache
+# License, Version 2.0 (the "License"); you may not use this
+# file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+#
 
-# read-write repo token
-# access to secrets
+# This workflow is triggered by the workflow 'test' and evaluates the results:
+# - download and unzip of alll artifacts
+# - publish the Testerra report to Github pages (branch 'gh-pages')
+# - Update the PR with test results based on JUnit XML
+# - Update the PR with a link to Testerra report
+
+# Important: Executing the test and updating the PR are splitted into 2 actions because of this:
+#            https://securitylab.github.com/research/github-actions-preventing-pwn-requests/
+
+name: Update of pull request
+
 on:
   workflow_run:
     workflows: ["TeamCity connector test"]
@@ -11,99 +38,63 @@ on:
 
 jobs:
 
-  upload:
+  comment:
 
     runs-on: ubuntu-latest
 
     if: >
       ${{ github.event.workflow_run.event == 'pull_request' }}
+
     steps:
-#      - name: 'Download artifact'
-#        uses: actions/github-script@v3.1.0
-#        with:
-#          script: |
-#            var artifacts = await github.actions.listWorkflowRunArtifacts({
-#               owner: context.repo.owner,
-#               repo: context.repo.repo,
-#               run_id: ${{github.event.workflow_run.id }},
-#            });
-#            var matchArtifact = artifacts.data.artifacts.filter((artifact) => {
-#              return artifact.name == "Testerra_results"
-#            })[0];
-#            var download = await github.actions.downloadArtifact({
-#               owner: context.repo.owner,
-#               repo: context.repo.repo,
-#               artifact_id: matchArtifact.id,
-#               archive_format: 'zip',
-#            });
-#            var fs = require('fs');
-#            fs.writeFileSync('${{github.workspace}}/Testerra_results.zip', Buffer.from(download.data));
-#      - run: unzip Testerra_results.zip
-#
-#      - name: Publish Test Report
-#        uses: starburstdata/action-testng-report@v1.0.0
-#        with:
-#          report_paths: 'xml/testng-results.xml'
-#          show_skipped: true
-#          github_token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Download and Extract Artifacts
-        env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-        run: |
-          mkdir -p artifacts && cd artifacts
+    - name: Download and extract Artifacts
+      env:
+        GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      run: |
+        mkdir -p artifacts && cd artifacts
+        artifacts_url=${{ github.event.workflow_run.artifacts_url }}
+        gh api "$artifacts_url" -q '.artifacts[] | [.name, .archive_download_url] | @tsv' | while read artifact
+        do
+          IFS=$'\t' read name url <<< "$artifact"
+          gh api $url > "$name.zip"
+          unzip -d "$name" "$name.zip"
+        done
 
-          artifacts_url=${{ github.event.workflow_run.artifacts_url }}
+    - name: Publish Unit Test Results
+      uses: EnricoMi/publish-unit-test-result-action@v1
+      with:
+        commit: ${{ github.event.workflow_run.head_sha }}
+        event_file: "artifacts/event_file/event.json"
+        event_name: ${{ github.event.workflow_run.event }}
+        files: "artifacts/**/TEST-Results.xml"
 
-          gh api "$artifacts_url" -q '.artifacts[] | [.name, .archive_download_url] | @tsv' | while read artifact
-          do
-            IFS=$'\t' read name url <<< "$artifact"
-            gh api $url > "$name.zip"
-            unzip -d "$name" "$name.zip"
-          done
+    - name: Deploy test report
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./artifacts/testerra_results
+        user_name: 'github-actions[bot]'
+        user_email: 'github-actions[bot]@users.noreply.github.com'
 
-      - name: Publish Unit Test Results
-        uses: EnricoMi/publish-unit-test-result-action@v1
-        with:
-          commit: ${{ github.event.workflow_run.head_sha }}
-          event_file: "artifacts/event_file/event.json"
-          event_name: ${{ github.event.workflow_run.event }}
-          files: "artifacts/**/TEST-Results.xml"
+    # event.json contains all needed information about the PR and the repo
+    - name: Parse event.json
+      id: format_script
+      run: |
+         githubjson=`cat artifacts/event_file/event.json`
+         prnumber=`echo $(jq -r '.pull_request.number' <<< "$githubjson")`
+         reponame=`echo $(jq -r '.repository.name' <<< "$githubjson")`
+         ghproject=`echo $(jq -r '.repository.owner.login' <<< "$githubjson")`
+         echo ::set-output name=prnumber::"${prnumber}"
+         echo ::set-output name=reponame::"${reponame}"
+         echo ::set-output name=ghproject::"${ghproject}"
 
-      - name: Deploy report page
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./artifacts/testerra_results
-          user_name: 'github-actions[bot]'
-          user_email: 'github-actions[bot]@users.noreply.github.com'
-
-      # It's working, but with additional plugin!
-#      - name: Get PR issue number
-#        id: format_script
-#        uses: notiz-dev/github-action-json-property@release
-#        with:
-#          path: 'artifacts/event_file/event.json'
-#          prop_path: 'pull_request.number'
-
-      - name: fetch the json value
-        id: format_script
-        run: |
-           githubjson=`cat artifacts/event_file/event.json`
-           prnumber=`echo $(jq -r '.pull_request.number' <<< "$githubjson")`
-           reponame=`echo $(jq -r '.repository.name' <<< "$githubjson")`
-           ghproject=`echo $(jq -r '.repository.owner.login' <<< "$githubjson")`
-           echo ::set-output name=prnumber::"${prnumber}"
-           echo ::set-output name=reponame::"${reponame}"
-           echo ::set-output name=ghproject::"${ghproject}"
-
-      - name: Add report link
-        uses: actions/github-script@v5
-        with:
-          script: |
-            github.rest.issues.createComment({
-              issue_number: ${{steps.format_script.outputs.prnumber}},
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: '🧪 Check out the [Testerra results](https://${{steps.format_script.outputs.ghproject}}.github.io/${{steps.format_script.outputs.reponame}}/report-ng/index.html) of unit test.'
-            })
+    - name: Add report link
+      uses: actions/github-script@v5
+      with:
+        script: |
+          github.rest.issues.createComment({
+            issue_number: ${{steps.format_script.outputs.prnumber}},
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: '🧪 Check out the [Testerra results](https://${{steps.format_script.outputs.ghproject}}.github.io/${{steps.format_script.outputs.reponame}}/report-ng/index.html) of unit test.'
+          })
