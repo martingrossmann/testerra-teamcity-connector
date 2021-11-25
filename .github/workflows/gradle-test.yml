@@ -8,10 +8,11 @@ on:
     branches:
       - master
 
-#permissions:
-#  actions: read
-#  contents: read
-#  pull-requests: write
+permissions:
+  checks: write
+  contents: read
+  issues: read
+  pull-requests: write
 
 jobs:
   test:
@@ -31,12 +32,12 @@ jobs:
     - name: Build with Gradle
       run: gradle test
 
-#    - name: Publish Test Report
-#      uses: starburstdata/action-testng-report@v1.0.0
-#      with:
-#        report_paths: 'test-report/xml/testng-results.xml'
-#        show_skipped: true
-#        github_token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Publish Test Report
+      uses: starburstdata/action-testng-report@v1.0.0
+      with:
+        report_paths: 'test-report/xml/testng-results.xml'
+        show_skipped: true
+        github_token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Upload event file
       uses: actions/upload-artifact@v2
