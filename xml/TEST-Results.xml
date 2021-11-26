@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="8" failures="4" name="Results" time="0.03" errors="0" skipped="0">
+<testsuite tests="8" failures="3" name="Results" time="0.028" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="org.gradle.internal.worker.tmpdir" value="/home/runner/work/testerra-teamcity-connector/testerra-teamcity-connector/build/tmp/test/work"/>
@@ -61,19 +61,17 @@
     <property name="sun.cpu.isalist" value=""/>
   </properties>
   <testcase classname="eu.tsystems.mms.tic.testerra.plugins.teamcity.test.SimpleTest" name="beforeSuite" time="0"/>
-  <testcase classname="eu.tsystems.mms.tic.testerra.plugins.teamcity.test.SimpleTest" name="testT01_SimplePassedTest" time="1.081"/>
-  <testcase classname="eu.tsystems.mms.tic.testerra.plugins.teamcity.test.SimpleTest" name="testT02_SimplePassedTest" time="1.083"/>
-  <testcase classname="eu.tsystems.mms.tic.testerra.plugins.teamcity.test.SimpleTest" name="testT03_SimpleFailedTest" time="1.086">
+  <testcase classname="eu.tsystems.mms.tic.testerra.plugins.teamcity.test.SimpleTest" name="testT01_SimplePassedTest" time="1.036"/>
+  <testcase classname="eu.tsystems.mms.tic.testerra.plugins.teamcity.test.SimpleTest" name="testT02_SimplePassedTest" time="2.06"/>
+  <testcase classname="eu.tsystems.mms.tic.testerra.plugins.teamcity.test.SimpleTest" name="testT03_SimpleFailedTest" time="3.067">
     <failure/>
   </testcase>
-  <testcase classname="eu.tsystems.mms.tic.testerra.plugins.teamcity.test.SimpleTest" name="testT06_RetriedTestSecondRunPassed" time="1.113">
+  <testcase classname="eu.tsystems.mms.tic.testerra.plugins.teamcity.test.SimpleTest" name="testT05_SimpleExpectedFailedTest" time="4.12">
     <failure/>
   </testcase>
-  <testcase classname="eu.tsystems.mms.tic.testerra.plugins.teamcity.test.SimpleTest" name="testT06_RetriedTestSecondRunPassed" time="1.148"/>
-  <testcase classname="eu.tsystems.mms.tic.testerra.plugins.teamcity.test.SimpleTest" name="test07_VerifyTeamCityMessages" time="1.152">
+  <testcase classname="eu.tsystems.mms.tic.testerra.plugins.teamcity.test.SimpleTest" name="testT06_RetriedTestSecondRunPassed" time="4.132">
     <failure/>
   </testcase>
-  <testcase classname="eu.tsystems.mms.tic.testerra.plugins.teamcity.test.SimpleTest" name="testT05_SimpleExpectedFailedTest" time="2.096">
-    <failure/>
-  </testcase>
+  <testcase classname="eu.tsystems.mms.tic.testerra.plugins.teamcity.test.SimpleTest" name="testT06_RetriedTestSecondRunPassed" time="4.149"/>
+  <testcase classname="eu.tsystems.mms.tic.testerra.plugins.teamcity.test.SimpleTest" name="test07_VerifyTeamCityMessages" time="4.183"/>
 </testsuite>
