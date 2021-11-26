@@ -31,11 +31,12 @@ on:
     branches:
       - master
 
-permissions:
-  checks: write
-  contents: read
-  issues: read
-  pull-requests: write
+# This is possible to update the comment but not sure if its unsecure
+#permissions:
+#  checks: write
+#  contents: read
+#  issues: read
+#  pull-requests: write
 
 jobs:
   test:
@@ -57,12 +58,12 @@ jobs:
     - name: Execute test
       run: gradle test
 
-    - name: Publish Test Report
-      uses: starburstdata/action-testng-report@v1.0.0
-      with:
-        report_paths: 'test-report/xml/testng-results.xml'
-        show_skipped: true
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+#    - name: Publish Test Report
+#      uses: starburstdata/action-testng-report@v1.0.0
+#      with:
+#        report_paths: 'test-report/xml/testng-results.xml'
+#        show_skipped: true
+#        github_token: ${{ secrets.GITHUB_TOKEN }}
 
     # event.json contains all needed information about the PR and the repo
     # and its needed from action 'pr-comment.yml'
