@@ -31,6 +31,13 @@ on:
     branches:
       - master
 
+# This is possible to update the comment but not sure if its unsecure
+#permissions:
+#  checks: write
+#  contents: read
+#  issues: read
+#  pull-requests: write
+
 jobs:
   test:
 
@@ -51,7 +58,6 @@ jobs:
     - name: Execute test
       run: gradle test
 
-#     # This is not working here, sbould moved to workflow action, but plugin cannot update another PR
 #    - name: Publish Test Report
 #      uses: starburstdata/action-testng-report@v1.0.0
 #      with:
