@@ -68,14 +68,6 @@ jobs:
         event_name: ${{ github.event.workflow_run.event }}
         files: "artifacts/**/TEST-Results.xml"
 
-    - name: Deploy test report
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./artifacts/testerra_results
-        user_name: 'github-actions[bot]'
-        user_email: 'github-actions[bot]@users.noreply.github.com'
-
     # event.json contains all needed information about the PR and the repo
     - name: Parse event.json
       id: format_script
@@ -84,9 +76,22 @@ jobs:
          prnumber=`echo $(jq -r '.pull_request.number' <<< "$githubjson")`
          reponame=`echo $(jq -r '.repository.name' <<< "$githubjson")`
          ghproject=`echo $(jq -r '.repository.owner.login' <<< "$githubjson")`
+         commithash=`echo $(jq -r '.pull_request.merge_commit_sha' <<< "$githubjson")`
          echo ::set-output name=prnumber::"${prnumber}"
          echo ::set-output name=reponame::"${reponame}"
          echo ::set-output name=ghproject::"${ghproject}"
+         echo ::set-output name=commithash::"${commithash}"
+
+
+    - name: Deploy test report
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./artifacts/testerra_results
+        keep_files: true
+        destination_dir: ${{steps.format_script.outputs.commithash}}
+        user_name: 'github-actions[bot]'
+        user_email: 'github-actions[bot]@users.noreply.github.com'
 
     - name: Add report link
       uses: actions/github-script@v5
@@ -96,5 +101,5 @@ jobs:
             issue_number: ${{steps.format_script.outputs.prnumber}},
             owner: context.repo.owner,
             repo: context.repo.repo,
-            body: '🧪 Check out the [Testerra results](https://${{steps.format_script.outputs.ghproject}}.github.io/${{steps.format_script.outputs.reponame}}/report-ng/index.html) of unit test.'
+            body: '🧪 Check out the [Testerra results](https://${{steps.format_script.outputs.ghproject}}.github.io/${{steps.format_script.outputs.reponame}}/${{steps.format_script.outputs.commithash}}/report-ng/index.html) of unit test.'
           })
