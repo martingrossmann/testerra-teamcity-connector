@@ -76,7 +76,7 @@ jobs:
          prnumber=`echo $(jq -r '.pull_request.number' <<< "$githubjson")`
          reponame=`echo $(jq -r '.repository.name' <<< "$githubjson")`
          ghproject=`echo $(jq -r '.repository.owner.login' <<< "$githubjson")`
-         commithash=`echo $(jq -r '.pull_request.merge_commit_sha' <<< "$githubjson")`
+         commithash=`echo $(jq -r '.pull_request.head.sha' <<< "$githubjson")`
          echo ::set-output name=prnumber::"${prnumber}"
          echo ::set-output name=reponame::"${reponame}"
          echo ::set-output name=ghproject::"${ghproject}"
